@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dljbr3oxkyhlw"]
+
+[ext_resource type="PackedScene" uid="uid://dil61auwkomxl" path="res://Player/player_scene.tscn" id="1_850yq"]
+[ext_resource type="PackedScene" uid="uid://c15fvemi64fft" path="res://Levels/TestLevel.tscn" id="2_xtgc1"]
+[ext_resource type="PackedScene" uid="uid://cs03ct8p56d66" path="res://Shared/Slime/WeightlessSlime.tscn" id="3_8ac7g"]
+[ext_resource type="Script" path="res://Shared/Slime/weight.gd" id="4_qse6k"]
+
+[node name="GameplayScene" type="Node2D"]
+
+[node name="Player Scene" parent="." instance=ExtResource("1_850yq")]
+position = Vector2(0, -50)
+
+[node name="TestLevel" parent="." instance=ExtResource("2_xtgc1")]
+
+[node name="Slime2" parent="." instance=ExtResource("3_8ac7g")]
+position = Vector2(172, -79)
+
+[node name="Weight" type="Node" parent="Slime2"]
+script = ExtResource("4_qse6k")
+
+[node name="Slime" parent="." instance=ExtResource("3_8ac7g")]
+position = Vector2(85, -52)
+
+[node name="Weight" type="Node" parent="Slime"]
+script = ExtResource("4_qse6k")

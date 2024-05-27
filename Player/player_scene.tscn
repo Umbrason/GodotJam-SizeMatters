@@ -1,0 +1,56 @@
+[gd_scene load_steps=13 format=3 uid="uid://dil61auwkomxl"]
+
+[ext_resource type="Script" path="res://Shared/Slime/weight.gd" id="1_5o86i"]
+[ext_resource type="Script" path="res://Player/PlayerMove.gd" id="1_qx5tj"]
+[ext_resource type="Script" path="res://Shared/Slime/absorber.gd" id="2_25ngs"]
+[ext_resource type="PackedScene" uid="uid://bc6fkifp1x8n2" path="res://Player/Visuals/Core.aseprite" id="4_rl5ha"]
+[ext_resource type="Script" path="res://Shared/Slime/Rendering/SlimeRenderer2D.gd" id="5_asp2v"]
+[ext_resource type="Script" path="res://Shared/Slime/Physics/SlimeCollisionShape2D.gd" id="7_7n1ci"]
+[ext_resource type="Script" path="res://Player/Visuals/CoreAnimator.gd" id="7_xn14r"]
+[ext_resource type="Script" path="res://Player/LaunchMechanic/PlayerSlimeLaunch.gd" id="8_j864l"]
+[ext_resource type="PackedScene" uid="uid://dtg2cymu7nb36" path="res://Player/LaunchMechanic/launched_slime.tscn" id="9_ydig4"]
+[ext_resource type="Script" path="res://Player/LaunchMechanic/Visuals/LaunchPreviewRenderer.gd" id="10_skt7l"]
+[ext_resource type="PackedScene" uid="uid://do05hx450o6df" path="res://Player/LaunchMechanic/Visuals/LaunchDot.tscn" id="11_tem13"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vkmg0"]
+radius = 10.583
+
+[node name="Player Scene" type="Node2D"]
+
+[node name="PixelPerfectCamera2D" type="Camera2D" parent="."]
+
+[node name="Player Slime" type="CharacterBody2D" parent="."]
+position = Vector2(0, -26)
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_qx5tj")
+
+[node name="Weight" type="Node" parent="Player Slime"]
+script = ExtResource("1_5o86i")
+_weight = 6
+
+[node name="Absorber" type="Node2D" parent="Player Slime"]
+script = ExtResource("2_25ngs")
+
+[node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime"]
+shape = SubResource("CircleShape2D_vkmg0")
+script = ExtResource("7_7n1ci")
+
+[node name="SlimeRenderer2D" type="MeshInstance2D" parent="Player Slime"]
+script = ExtResource("5_asp2v")
+
+[node name="Core" parent="Player Slime" instance=ExtResource("4_rl5ha")]
+animation = &"Move_Right"
+frame = 1
+frame_progress = 1.0
+script = ExtResource("7_xn14r")
+
+[node name="PlayerSlimeLaunch" type="Node2D" parent="Player Slime"]
+script = ExtResource("8_j864l")
+slimeProjectile = ExtResource("9_ydig4")
+
+[node name="LaunchPreviewRenderer" type="Node2D" parent="Player Slime/PlayerSlimeLaunch"]
+script = ExtResource("10_skt7l")
+dot = ExtResource("11_tem13")
+
+[connection signal="on_body_enter" from="Player Slime" to="Player Slime/Absorber" method="tryAbsorb"]

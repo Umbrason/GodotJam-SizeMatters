@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtg2cymu7nb36"]
+
+[ext_resource type="PackedScene" uid="uid://cs03ct8p56d66" path="res://Shared/Slime/WeightlessSlime.tscn" id="1_jtlo6"]
+[ext_resource type="Script" path="res://Shared/Slime/weight.gd" id="2_o7dmy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2xik3"]
+radius = 4.0
+
+[node name="LaunchedSlime" instance=ExtResource("1_jtlo6")]
+collision_layer = 3
+collision_mask = 3
+
+[node name="SlimeCollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_2xik3")
+
+[node name="Timer" type="Timer" parent="SlimeCollisionShape2D" index="0"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="Weight" type="Node" parent="." index="4"]
+script = ExtResource("2_o7dmy")
+
+[connection signal="timeout" from="SlimeCollisionShape2D/Timer" to="." method="set_collision_mask" binds= [7]]

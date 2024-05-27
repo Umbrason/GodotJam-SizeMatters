@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://do05hx450o6df"]
+
+[ext_resource type="SpriteFrames" uid="uid://bobyhxhk6r0e1" path="res://Player/LaunchMechanic/Visuals/LaunchPreviewDots.aseprite" id="1_msakf"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_msakf")

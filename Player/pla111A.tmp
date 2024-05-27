@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://dil61auwkomxl"]
+
+[ext_resource type="Script" path="res://Shared/Slime/weight.gd" id="1_5o86i"]
+[ext_resource type="Script" path="res://Player/PlayerMove.gd" id="1_qx5tj"]
+[ext_resource type="Script" path="res://PixelPerfectCamera.gd" id="1_sc8bp"]
+[ext_resource type="Script" path="res://Shared/Slime/absorber.gd" id="2_25ngs"]
+[ext_resource type="Texture2D" uid="uid://bc6fkifp1x8n2" path="res://Player/Visuals/Core.aseprite" id="4_rl5ha"]
+[ext_resource type="Script" path="res://Shared/Slime/Rendering/SlimeRenderer2D.gd" id="5_asp2v"]
+[ext_resource type="Script" path="res://Shared/Slime/Physics/SlimeCollisionShape2D.gd" id="7_7n1ci"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5tyee"]
+
+[node name="Player Scene" type="Node2D"]
+
+[node name="PixelPerfectCamera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+script = ExtResource("1_sc8bp")
+
+[node name="Player Slime" type="CharacterBody2D" parent="."]
+position = Vector2(0, -26)
+script = ExtResource("1_qx5tj")
+
+[node name="Weight" type="Node" parent="Player Slime"]
+script = ExtResource("1_5o86i")
+weight = 4
+
+[node name="Absorber" type="Node2D" parent="Player Slime"]
+script = ExtResource("2_25ngs")
+
+[node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime"]
+shape = SubResource("CircleShape2D_5tyee")
+script = ExtResource("7_7n1ci")
+
+[node name="SlimeRenderer2D" type="MeshInstance2D" parent="Player Slime"]
+script = ExtResource("5_asp2v")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player Slime"]
+texture = ExtResource("4_rl5ha")
+
+[connection signal="on_body_enter" from="Player Slime" to="Player Slime/Absorber" method="tryAbsorb"]
