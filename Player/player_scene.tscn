@@ -12,8 +12,8 @@
 [ext_resource type="Script" path="res://Player/LaunchMechanic/Visuals/LaunchPreviewRenderer.gd" id="10_skt7l"]
 [ext_resource type="PackedScene" uid="uid://do05hx450o6df" path="res://Player/LaunchMechanic/Visuals/LaunchDot.tscn" id="11_tem13"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vkmg0"]
-radius = 10.583
+[sub_resource type="CircleShape2D" id="CircleShape2D_8vv37"]
+radius = 9.79796
 
 [node name="Player Scene" type="Node2D"]
 
@@ -33,7 +33,7 @@ _weight = 6
 script = ExtResource("2_25ngs")
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime"]
-shape = SubResource("CircleShape2D_vkmg0")
+shape = SubResource("CircleShape2D_8vv37")
 script = ExtResource("7_7n1ci")
 
 [node name="SlimeRenderer2D" type="MeshInstance2D" parent="Player Slime"]
