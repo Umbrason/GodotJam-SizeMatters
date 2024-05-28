@@ -12,13 +12,13 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity");
 func _process(_deltaTime):
 	var mousePos = get_global_mouse_position()
 	var direction = (mousePos - self.global_position).normalized()	
-	var startPos = (weight.getRadius() + 1) * direction + self.global_position
+	var startPos = (weight.getRadius() - .5) * direction + self.global_position
 
 	var launchVelocity = calcLaunchVelocity(startPos, mousePos)
 	previewRenderer.setArc(startPos, launchVelocity)
 	var projectileInstance = slimeProjectile.instantiate() as RigidBody2D	
 
-	if(weight.weight > 6) && Input.is_action_just_pressed("Launch"):
+	if(weight.weight > 1) && Input.is_action_just_pressed("Launch"):
 		weight.weight -= 1;
 		projectileInstance.global_position = startPos
 		projectileInstance.linear_velocity = launchVelocity

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dil61auwkomxl"]
+[gd_scene load_steps=14 format=3 uid="uid://dil61auwkomxl"]
 
 [ext_resource type="Script" path="res://Shared/Slime/weight.gd" id="1_5o86i"]
 [ext_resource type="Script" path="res://Player/PlayerMove.gd" id="1_qx5tj"]
@@ -12,8 +12,11 @@
 [ext_resource type="Script" path="res://Player/LaunchMechanic/Visuals/LaunchPreviewRenderer.gd" id="10_skt7l"]
 [ext_resource type="PackedScene" uid="uid://do05hx450o6df" path="res://Player/LaunchMechanic/Visuals/LaunchDot.tscn" id="11_tem13"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8vv37"]
-radius = 9.79796
+[sub_resource type="CircleShape2D" id="CircleShape2D_y0udp"]
+radius = 8.94427
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wttld"]
+radius = 8.94427
 
 [node name="Player Scene" type="Node2D"]
 
@@ -22,24 +25,26 @@ radius = 9.79796
 [node name="Player Slime" type="CharacterBody2D" parent="."]
 position = Vector2(0, -26)
 collision_layer = 4
-collision_mask = 3
 script = ExtResource("1_qx5tj")
 
 [node name="Weight" type="Node" parent="Player Slime"]
 script = ExtResource("1_5o86i")
-_weight = 6
+_baseRadius = 4
 
 [node name="Absorber" type="Node2D" parent="Player Slime"]
 script = ExtResource("2_25ngs")
 
-[node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime"]
-shape = SubResource("CircleShape2D_8vv37")
+[node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime" node_paths=PackedStringArray("weight")]
+shape = SubResource("CircleShape2D_y0udp")
 script = ExtResource("7_7n1ci")
+weight = NodePath("../Weight")
 
 [node name="SlimeRenderer2D" type="MeshInstance2D" parent="Player Slime"]
+z_index = 10
 script = ExtResource("5_asp2v")
 
 [node name="Core" parent="Player Slime" instance=ExtResource("4_rl5ha")]
+z_index = 15
 animation = &"Move_Right"
 frame = 1
 frame_progress = 1.0
@@ -53,4 +58,15 @@ slimeProjectile = ExtResource("9_ydig4")
 script = ExtResource("10_skt7l")
 dot = ExtResource("11_tem13")
 
+[node name="Area2D" type="Area2D" parent="Player Slime"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime/Area2D" node_paths=PackedStringArray("weight")]
+shape = SubResource("CircleShape2D_wttld")
+script = ExtResource("7_7n1ci")
+weight = NodePath("../../Weight")
+
 [connection signal="on_body_enter" from="Player Slime" to="Player Slime/Absorber" method="tryAbsorb"]
+[connection signal="area_entered" from="Player Slime/Area2D" to="Player Slime/Absorber" method="tryAbsorb"]
+[connection signal="body_entered" from="Player Slime/Area2D" to="Player Slime/Absorber" method="tryAbsorb"]

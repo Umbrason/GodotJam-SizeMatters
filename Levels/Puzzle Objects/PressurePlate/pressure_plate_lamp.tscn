@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://reudv5th26ne"]
+
+[node name="lamp" type="Polygon2D"]
+position = Vector2(0, -3)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-1, -1, 1, -1, 1, 1, -1, 1)

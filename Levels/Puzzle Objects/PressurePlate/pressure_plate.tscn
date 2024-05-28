@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8tjqf2ff2yhr"]
+
+[ext_resource type="Script" path="res://Levels/Puzzle Objects/PressurePlate/PressurePlate.gd" id="1_b63sm"]
+[ext_resource type="PackedScene" uid="uid://reudv5th26ne" path="res://Levels/Puzzle Objects/PressurePlate/pressure_plate_lamp.tscn" id="2_csou0"]
+[ext_resource type="Script" path="res://Levels/Puzzle Objects/WeightCounter/WeightCounter.gd" id="3_ei4ug"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_byuj0"]
+size = Vector2(40, 5)
+
+[node name="PressurePlate" type="Node2D"]
+script = ExtResource("1_b63sm")
+required_weight = 4
+dot_template = ExtResource("2_csou0")
+
+[node name="WeightCounter" type="Area2D" parent="."]
+position = Vector2(0, -3)
+collision_mask = 7
+script = ExtResource("3_ei4ug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeightCounter"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_byuj0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(0, -2)
+polygon = PackedVector2Array(-15, -2, -20, -3, -25, 2, 25, 2, 20, -3, 15, -2)
+
+[node name="Button" type="Polygon2D" parent="."]
+color = Color(0.524448, 0.128372, 0.167904, 1)
+polygon = PackedVector2Array(19, -5, -19, -5, -19, -7, 19, -7)
+
+[node name="Base" type="Polygon2D" parent="."]
+color = Color(0.295867, 0.295866, 0.295866, 1)
+polygon = PackedVector2Array(25, 0, -25, 0, -20, -5, 20, -5)
+
+[node name="Lamps" type="Node2D" parent="."]

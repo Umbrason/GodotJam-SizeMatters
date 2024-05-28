@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Absorbable
 
-@onready var weight = $"../Weight" as Weight
+@export var weight: Weight
 var absorbedGuard = false;
 
 func absorb():
@@ -10,4 +10,6 @@ func absorb():
 		return 0
 	absorbedGuard = true
 	get_node("..").queue_free()
-	return weight.weight
+	var w = weight.weight
+	weight.weight = 0
+	return w
