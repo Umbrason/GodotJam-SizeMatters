@@ -12,15 +12,13 @@
 [ext_resource type="Script" path="res://Player/LaunchMechanic/Visuals/LaunchPreviewRenderer.gd" id="10_skt7l"]
 [ext_resource type="PackedScene" uid="uid://do05hx450o6df" path="res://Player/LaunchMechanic/Visuals/LaunchDot.tscn" id="11_tem13"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_y0udp"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_0hejb"]
 radius = 8.94427
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wttld"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_suc1l"]
 radius = 8.94427
 
 [node name="Player Scene" type="Node2D"]
-
-[node name="PixelPerfectCamera2D" type="Camera2D" parent="."]
 
 [node name="Player Slime" type="CharacterBody2D" parent="."]
 position = Vector2(0, -26)
@@ -35,7 +33,7 @@ _baseRadius = 4
 script = ExtResource("2_25ngs")
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_y0udp")
+shape = SubResource("CircleShape2D_0hejb")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../Weight")
 
@@ -63,9 +61,19 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime/Area2D" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_wttld")
+shape = SubResource("CircleShape2D_suc1l")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../../Weight")
+
+[node name="PixelPerfectCamera2D" type="Camera2D" parent="Player Slime"]
+position = Vector2(0, 26)
+position_smoothing_speed = 2.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.4
+drag_top_margin = 0.75
+drag_right_margin = 0.4
+drag_bottom_margin = 0.5
 
 [connection signal="on_body_enter" from="Player Slime" to="Player Slime/Absorber" method="tryAbsorb"]
 [connection signal="area_entered" from="Player Slime/Area2D" to="Player Slime/Absorber" method="tryAbsorb"]

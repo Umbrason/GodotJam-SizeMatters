@@ -10,6 +10,7 @@ var tilesPerSecond = 10
 var tileJumpHeight = 4
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity");
+@onready var weight = $"Weight"
 
 func _ready():
 	floor_snap_length = floor(TILE_SIZE / 2.)
@@ -21,11 +22,19 @@ func _physics_process(delta):
 	if(!is_on_floor()): 
 		velocity.y += gravity * delta
 	if is_on_floor() && Input.is_action_pressed("Jump"):
-		velocity.y = -sqrt(2 * gravity * tileJumpHeight * TILE_SIZE)
-	
-	
+		velocity.y = -sqrt(2 * gravity * jumpHeightByWeight(weight.weight) * TILE_SIZE)
+
 	var slideCollisionCount = get_slide_collision_count()
 	for i in range(slideCollisionCount):
 		var collision = get_slide_collision(i)
 		on_body_enter.emit(collision.get_collider())			
 	move_and_slide()
+
+func jumpHeightByWeight(w):
+	if(w <= 0): return 8
+	if(w <= 1): return 6
+	if(w <= 2): return 5
+	if(w <= 3): return 3.5
+	if(w <= 5): return 2
+	return 1.5
+	

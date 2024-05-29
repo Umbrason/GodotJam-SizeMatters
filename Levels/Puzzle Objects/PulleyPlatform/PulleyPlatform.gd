@@ -74,14 +74,14 @@ func _physics_process(delta):
 
 	leftPolygon.set(0, Vector2( - 1, 1))
 	leftPolygon.set(1, Vector2(1, 1))
-	leftPolygon.set(2, Vector2(1, leftSpring.Position))
-	leftPolygon.set(3, Vector2( - 1, leftSpring.Position))
+	leftPolygon.set(2, Vector2(1, leftSpring.Position + 2))
+	leftPolygon.set(3, Vector2( - 1, leftSpring.Position + 2))
 	LeftPolygon2D.polygon = leftPolygon
 	
 	rightPolygon.set(0, Vector2( - 1, 1))
 	rightPolygon.set(1, Vector2(1, 1))
-	rightPolygon.set(2, Vector2(1, rightSpring.Position))
-	rightPolygon.set(3, Vector2( - 1, rightSpring.Position))
+	rightPolygon.set(2, Vector2(1, rightSpring.Position + 2))
+	rightPolygon.set(3, Vector2( - 1, rightSpring.Position + 2))
 	RightPolygon2D.polygon = rightPolygon
 
 	LeftPlatformAnchor.position.y = leftSpring.Position;
