@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://1hpbmtm8lshf"]
+
+[ext_resource type="Script" path="res://Levels/PuzzleLevel.gd" id="1_a5i4q"]
+[ext_resource type="TileSet" uid="uid://iejtxbfhfjj2" path="res://Levels/Tileset.tres" id="2_4jlo1"]
+[ext_resource type="Script" path="res://Levels/Puzzle Objects/Spawnpoint/SnapToGridCenter.gd" id="3_8dwyl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5iyp1"]
+size = Vector2(40, 3)
+
+[node name="BasePuzzleLevel" type="Node2D" node_paths=PackedStringArray("CameraStartPos", "PlayerStartPos", "ExitArea")]
+script = ExtResource("1_a5i4q")
+CameraStartPos = NodePath("CameraStartPos")
+PlayerStartPos = NodePath("PlayerStartPos")
+ExitArea = NodePath("ExitArea")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_4jlo1")
+format = 2
+layer_0/name = "Walls"
+layer_0/z_index = -1
+layer_0/tile_data = PackedInt32Array(196604, 262144, 3, 196605, 262144, 3, 196606, 262144, 3, 196607, 262144, 3, 131072, 262144, 3, 131073, 262144, 3, 131074, 262144, 3, 131075, 262144, 3, 131076, 0, 14, 196612, 0, 15, 131077, 65536, 14, 196613, 65536, 15, 196614, 131072, 15, 65543, 196608, 13, 196615, 196608, 15, 196616, 262144, 15, 131081, 327680, 14, 196617, 327680, 15, 131082, 393216, 14, 196618, 393216, 15, -393223, 0, 8, -327687, 0, 9, -262151, 0, 10, -393222, 65536, 8, -327686, 65536, 9, -262150, 65536, 10, -393221, 131072, 8, -327685, 131072, 9, -262149, 131072, 10, -393220, 196608, 8, -327684, 196608, 9, -262148, 196608, 10, -196612, 196608, 11, -393219, 262144, 8, -327683, 262144, 9, -262147, 262144, 10, -393218, 327680, 8, -327682, 327680, 9, -262146, 327680, 10, -393217, 393216, 8, -327681, 393216, 9, -262145, 393216, 10, 196603, 262144, 3, 196602, 262144, 3, 196601, 262144, 3, 196600, 262144, 3, -262152, 655360, 9, 131063, 131072, 2, 65527, 131072, 2, -9, 131072, 2, -65545, 131072, 2, -131081, 131072, 2, -196617, 131072, 2, -262153, 720896, 7, 196599, 131072, 3, -327680, 655360, 9, -327679, 655360, 9, -327678, 655360, 9, -327677, 655360, 9, -327676, 655360, 9, -327675, 655360, 9, -327674, 655360, 9, -327673, 655360, 9, -327672, 655360, 9, -327671, 655360, 9, -327670, 655360, 9, -327669, 589824, 7, -262133, 327680, 2, -196597, 327680, 2, -131061, 327680, 2, -65525, 327680, 2, 11, 327680, 2, 65547, 327680, 2, 131083, 327680, 3, 262148, 0, 16, 262149, 65536, 16, 262150, 131072, 16, 262151, 196608, 16, 262152, 262144, 16, 262153, 327680, 16, 262154, 393216, 16)
+layer_1/name = "Water"
+layer_1/z_index = -1
+layer_1/tile_data = PackedInt32Array()
+
+[node name="CameraStartPos" type="Node2D" parent="."]
+position = Vector2(-28, -4)
+script = ExtResource("3_8dwyl")
+
+[node name="PlayerStartPos" type="Node2D" parent="."]
+position = Vector2(-28, -44)
+script = ExtResource("3_8dwyl")
+
+[node name="ExitArea" type="Area2D" parent="."]
+position = Vector2(60, 36)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_8dwyl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitArea"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_5iyp1")

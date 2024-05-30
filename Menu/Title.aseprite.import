@@ -1,0 +1,27 @@
+[remap]
+
+importer="Aseprite TextureRect Import"
+type="PackedScene"
+uid="uid://bmd8yve1lkrlu"
+path="res://.godot/imported/Title.aseprite-6acd6ca36b3c742edfbb7bc5d7cddd26.scn"
+
+[deps]
+
+source_file="res://Menu/Title.aseprite"
+dest_files=["res://.godot/imported/Title.aseprite-6acd6ca36b3c742edfbb7bc5d7cddd26.scn"]
+
+[params]
+
+spritesheet/layout=0
+spritesheet/fixed_rows_count=1
+spritesheet/fixed_columns_count=1
+spritesheet/border_type=0
+spritesheet/trim=false
+spritesheet/ignore_empty=false
+spritesheet/merge_duplicates=false
+animation/default/name="default"
+animation/default/direction=0
+animation/default/repeat_count=1
+animation/autoplay="true"
+animation/strategy_(packed_spritesheet)=0
+animation/strategy_(grid-based_spritesheet)=0

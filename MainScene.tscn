@@ -1,0 +1,320 @@
+[gd_scene load_steps=25 format=3 uid="uid://dljbr3oxkyhlw"]
+
+[ext_resource type="Script" path="res://Levels/Loading/LevelLoader.gd" id="1_sr0r4"]
+[ext_resource type="PackedScene" uid="uid://dil61auwkomxl" path="res://Player/player_scene.tscn" id="2_g5a73"]
+[ext_resource type="PackedScene" uid="uid://h1us8qajlxpl" path="res://Levels/Scenes/WeightPressureplate.tscn" id="3_d7oqc"]
+[ext_resource type="AudioStream" uid="uid://bm6o3erhliuxq" path="res://Shared/Audio/BGM.wav" id="5_00qw6"]
+[ext_resource type="AudioStream" uid="uid://bb2by3xtd3pk2" path="res://Shared/Audio/Main_Menu.wav" id="6_8wlnv"]
+[ext_resource type="Script" path="res://Menu/Pause/PauseMenu.gd" id="7_ylj1e"]
+[ext_resource type="Texture2D" uid="uid://mhujn6qkpabh" path="res://Menu/TitleFrames/Title1.png" id="8_h1mnr"]
+[ext_resource type="Texture2D" uid="uid://cfu84iu52inys" path="res://Menu/TitleFrames/Title2.png" id="9_wey2f"]
+[ext_resource type="Texture2D" uid="uid://dlo7i6epgx55t" path="res://Menu/TitleFrames/Title3.png" id="10_0okuo"]
+[ext_resource type="Texture2D" uid="uid://d1lq5ng7gsyem" path="res://Menu/TitleFrames/Title4.png" id="11_rtsrq"]
+[ext_resource type="Texture2D" uid="uid://df48i2o3lgtox" path="res://Menu/TitleFrames/Title5.png" id="12_p2nvl"]
+[ext_resource type="Texture2D" uid="uid://csngff7efquxx" path="res://Menu/TitleFrames/Title6.png" id="13_fuw62"]
+[ext_resource type="Texture2D" uid="uid://348udkmh384x" path="res://Menu/TitleFrames/Title7.png" id="14_42miq"]
+[ext_resource type="Texture2D" uid="uid://jdctq85gkprj" path="res://Menu/TitleFrames/Title8.png" id="15_6a6e0"]
+[ext_resource type="Texture2D" uid="uid://b8p0mwwtfick3" path="res://Menu/TitleFrames/Title9.png" id="16_4nxre"]
+[ext_resource type="Texture2D" uid="uid://dhifn6ap5whev" path="res://Menu/TitleFrames/Title10.png" id="17_awgh5"]
+[ext_resource type="Theme" uid="uid://bxbbvh6pnw2tw" path="res://Menu/Theme.theme" id="18_bjxwu"]
+[ext_resource type="Script" path="res://Menu/AudioSlider.gd" id="19_8vcwx"]
+[ext_resource type="StyleBox" uid="uid://dmory03387e7t" path="res://Menu/BoxNormal.stylebox" id="20_pfeq6"]
+[ext_resource type="StyleBox" uid="uid://ccmupnxbh2ivt" path="res://Menu/BoxHover.stylebox" id="21_ify6s"]
+[ext_resource type="StyleBox" uid="uid://c6tsj6s85ge1j" path="res://Menu/BoxPressed.stylebox" id="22_tno87"]
+[ext_resource type="StyleBox" uid="uid://dt8yihysjb4fj" path="res://Menu/BoxFocus.stylebox" id="23_j314d"]
+[ext_resource type="Script" path="res://Menu/Main/MainMenu.gd" id="24_831h2"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_2n3mr"]
+frames = 10
+one_shot = true
+speed_scale = 10.0
+frame_0/texture = ExtResource("8_h1mnr")
+frame_1/texture = ExtResource("9_wey2f")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("10_0okuo")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("11_rtsrq")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("12_p2nvl")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("13_fuw62")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("14_42miq")
+frame_6/duration = 1.0
+frame_7/texture = ExtResource("15_6a6e0")
+frame_7/duration = 1.0
+frame_8/texture = ExtResource("16_4nxre")
+frame_8/duration = 1.0
+frame_9/texture = ExtResource("17_awgh5")
+frame_9/duration = 1.0
+
+[node name="MainScene" type="Node2D"]
+
+[node name="LevelLoader" type="Node" parent="."]
+script = ExtResource("1_sr0r4")
+PlayerSceneTemplate = ExtResource("2_g5a73")
+Levels = Array[PackedScene]([ExtResource("3_d7oqc")])
+
+[node name="BGM" type="Node" parent="."]
+process_mode = 3
+
+[node name="GameplayBGM" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("5_00qw6")
+autoplay = true
+bus = &"BGM"
+
+[node name="MenuBGM" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("6_8wlnv")
+autoplay = true
+bus = &"BGM"
+
+[node name="PauseMenuCanvas" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("7_ylj1e")
+
+[node name="Root" type="VBoxContainer" parent="PauseMenuCanvas"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Title" type="TextureRect" parent="PauseMenuCanvas/Root"]
+custom_minimum_size = Vector2(126, 54)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AnimatedTexture_2n3mr")
+
+[node name="Widgets" type="VBoxContainer" parent="PauseMenuCanvas/Root"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="SFX HBox" type="HBoxContainer" parent="PauseMenuCanvas/Root/Widgets"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="PauseMenuCanvas/Root/Widgets/SFX HBox"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "SFX"
+
+[node name="HSlider2" type="HSlider" parent="PauseMenuCanvas/Root/Widgets/SFX HBox"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+rounded = true
+script = ExtResource("19_8vcwx")
+busname = "SFX"
+
+[node name="Control" type="Control" parent="PauseMenuCanvas/Root/Widgets/SFX HBox"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+
+[node name="BGM HBox" type="HBoxContainer" parent="PauseMenuCanvas/Root/Widgets"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="PauseMenuCanvas/Root/Widgets/BGM HBox"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BGM"
+
+[node name="HSlider2" type="HSlider" parent="PauseMenuCanvas/Root/Widgets/BGM HBox"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+rounded = true
+script = ExtResource("19_8vcwx")
+busname = "BGM"
+
+[node name="Control" type="Control" parent="PauseMenuCanvas/Root/Widgets/BGM HBox"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="PauseMenuCanvas/Root/Widgets"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+theme_override_styles/normal = ExtResource("20_pfeq6")
+theme_override_styles/hover = ExtResource("21_ify6s")
+theme_override_styles/pressed = ExtResource("22_tno87")
+theme_override_styles/focus = ExtResource("23_j314d")
+text = "Restart"
+
+[node name="MenuButton" type="Button" parent="PauseMenuCanvas/Root/Widgets"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+theme_override_styles/normal = ExtResource("20_pfeq6")
+theme_override_styles/hover = ExtResource("21_ify6s")
+theme_override_styles/pressed = ExtResource("22_tno87")
+theme_override_styles/focus = ExtResource("23_j314d")
+text = "To Menu"
+
+[node name="QuitButton" type="Button" parent="PauseMenuCanvas/Root/Widgets"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+theme_override_styles/normal = ExtResource("20_pfeq6")
+theme_override_styles/hover = ExtResource("21_ify6s")
+theme_override_styles/pressed = ExtResource("22_tno87")
+theme_override_styles/focus = ExtResource("23_j314d")
+text = "Quit"
+
+[node name="Space" type="Control" parent="PauseMenuCanvas/Root"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MainMenuCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("MenuBGM", "GameplayBGM")]
+script = ExtResource("24_831h2")
+MenuBGM = NodePath("../BGM/MenuBGM")
+GameplayBGM = NodePath("../BGM/GameplayBGM")
+
+[node name="Root" type="VBoxContainer" parent="MainMenuCanvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Title" type="TextureRect" parent="MainMenuCanvas/Root"]
+custom_minimum_size = Vector2(126, 54)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AnimatedTexture_2n3mr")
+
+[node name="FixedSpace" type="Control" parent="MainMenuCanvas/Root"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="Widgets" type="VBoxContainer" parent="MainMenuCanvas/Root"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="MainMenuCanvas/Root/Widgets"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+theme_override_styles/normal = ExtResource("20_pfeq6")
+theme_override_styles/hover = ExtResource("21_ify6s")
+theme_override_styles/pressed = ExtResource("22_tno87")
+theme_override_styles/focus = ExtResource("23_j314d")
+text = "Play"
+
+[node name="SFX HBox" type="HBoxContainer" parent="MainMenuCanvas/Root/Widgets"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="MainMenuCanvas/Root/Widgets/SFX HBox"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "SFX"
+
+[node name="HSlider2" type="HSlider" parent="MainMenuCanvas/Root/Widgets/SFX HBox"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+rounded = true
+script = ExtResource("19_8vcwx")
+busname = "SFX"
+
+[node name="Control" type="Control" parent="MainMenuCanvas/Root/Widgets/SFX HBox"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+
+[node name="BGM HBox" type="HBoxContainer" parent="MainMenuCanvas/Root/Widgets"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="MainMenuCanvas/Root/Widgets/BGM HBox"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BGM"
+
+[node name="HSlider2" type="HSlider" parent="MainMenuCanvas/Root/Widgets/BGM HBox"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+rounded = true
+script = ExtResource("19_8vcwx")
+busname = "BGM"
+
+[node name="Control" type="Control" parent="MainMenuCanvas/Root/Widgets/BGM HBox"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="MainMenuCanvas/Root/Widgets"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+theme_override_styles/normal = ExtResource("20_pfeq6")
+theme_override_styles/hover = ExtResource("21_ify6s")
+theme_override_styles/pressed = ExtResource("22_tno87")
+theme_override_styles/focus = ExtResource("23_j314d")
+text = "Quit"
+
+[node name="FixedSpace" type="Control" parent="MainMenuCanvas/Root/Widgets"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMenuCanvas/Root/Widgets"]
+layout_mode = 2
+text = "Levels"
+horizontal_alignment = 1
+
+[node name="LevelButtons" type="GridContainer" parent="MainMenuCanvas/Root/Widgets"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Level_0" type="Button" parent="MainMenuCanvas/Root/Widgets/LevelButtons"]
+custom_minimum_size = Vector2(9, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("18_bjxwu")
+theme_override_styles/normal = ExtResource("20_pfeq6")
+theme_override_styles/hover = ExtResource("21_ify6s")
+theme_override_styles/pressed = ExtResource("22_tno87")
+theme_override_styles/focus = ExtResource("23_j314d")
+text = "0"
+
+[node name="Control2" type="Control" parent="MainMenuCanvas/Root/Widgets"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="MainMenuCanvas/Root/Widgets"]
+layout_mode = 2
+text = "Umbrason, Spyton "
+horizontal_alignment = 2
+
+[node name="Control3" type="Control" parent="MainMenuCanvas/Root/Widgets"]
+custom_minimum_size = Vector2(0, 9)
+layout_mode = 2
+size_flags_vertical = 4
+
+[connection signal="pressed" from="PauseMenuCanvas/Root/Widgets/RestartButton" to="PauseMenuCanvas" method="onRestart"]
+[connection signal="pressed" from="PauseMenuCanvas/Root/Widgets/MenuButton" to="PauseMenuCanvas" method="onMenu"]
+[connection signal="pressed" from="PauseMenuCanvas/Root/Widgets/QuitButton" to="PauseMenuCanvas" method="onQuit"]
+[connection signal="pressed" from="MainMenuCanvas/Root/Widgets/PlayButton" to="MainMenuCanvas" method="onStart"]
+[connection signal="pressed" from="MainMenuCanvas/Root/Widgets/QuitButton" to="MainMenuCanvas" method="onQuit"]

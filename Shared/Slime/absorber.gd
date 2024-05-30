@@ -3,6 +3,7 @@ extends Node2D
 class_name Absorber
 
 @onready var weight = $"../Weight" as Weight
+@export var absorbSFX: AudioStream
 
 func tryAbsorb(body):
 	if(body == null): return
@@ -12,3 +13,4 @@ func tryAbsorb(body):
 	if weight.getRadius() < absorbable.weight.getRadius(): return
 	var weightGain = absorbable.absorb()
 	weight.weight += weightGain
+	AudioOneshot.playAt(absorbSFX, global_position)

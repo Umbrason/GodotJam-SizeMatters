@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgytx5sn0k07w"]
+
+[ext_resource type="Script" path="res://Levels/Puzzle Objects/Door/Door.gd" id="1_tifmo"]
+[ext_resource type="PackedScene" uid="uid://ods8toegc4rx" path="res://Levels/Puzzle Objects/Door/Door.aseprite" id="2_o5do3"]
+
+[node name="Door" type="Node2D"]
+position = Vector2(-60, -21)
+script = ExtResource("1_tifmo")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AnimatableBody2D"]
+polygon = PackedVector2Array(0, -65, -3, -63, -3, 1, 3, 1, 3, -63)
+
+[node name="DoorSprite" parent="." instance=ExtResource("2_o5do3")]
+position = Vector2(0, -33)

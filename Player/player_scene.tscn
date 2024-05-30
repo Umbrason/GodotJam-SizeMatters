@@ -1,29 +1,45 @@
-[gd_scene load_steps=14 format=3 uid="uid://dil61auwkomxl"]
+[gd_scene load_steps=23 format=3 uid="uid://dil61auwkomxl"]
 
 [ext_resource type="Script" path="res://Shared/Slime/weight.gd" id="1_5o86i"]
 [ext_resource type="Script" path="res://Player/PlayerMove.gd" id="1_qx5tj"]
+[ext_resource type="Script" path="res://Levels/Loading/PlayerScene.gd" id="1_xewo3"]
 [ext_resource type="Script" path="res://Shared/Slime/absorber.gd" id="2_25ngs"]
+[ext_resource type="AudioStream" uid="uid://6gxu7j78mk7w" path="res://Player/SFX/jump.wav" id="3_k6jt3"]
+[ext_resource type="AudioStream" uid="uid://dxbm15ghbsktu" path="res://Player/SFX/land.wav" id="4_81jhe"]
 [ext_resource type="PackedScene" uid="uid://bc6fkifp1x8n2" path="res://Player/Visuals/Core.aseprite" id="4_rl5ha"]
 [ext_resource type="Script" path="res://Shared/Slime/Rendering/SlimeRenderer2D.gd" id="5_asp2v"]
 [ext_resource type="Script" path="res://Shared/Slime/Physics/SlimeCollisionShape2D.gd" id="7_7n1ci"]
+[ext_resource type="AudioStream" uid="uid://cqcexn2vbuvtm" path="res://Shared/Slime/SFX/Absorb.wav" id="7_vkjla"]
 [ext_resource type="Script" path="res://Player/Visuals/CoreAnimator.gd" id="7_xn14r"]
 [ext_resource type="Script" path="res://Player/LaunchMechanic/PlayerSlimeLaunch.gd" id="8_j864l"]
 [ext_resource type="PackedScene" uid="uid://dtg2cymu7nb36" path="res://Player/LaunchMechanic/launched_slime.tscn" id="9_ydig4"]
 [ext_resource type="Script" path="res://Player/LaunchMechanic/Visuals/LaunchPreviewRenderer.gd" id="10_skt7l"]
 [ext_resource type="PackedScene" uid="uid://do05hx450o6df" path="res://Player/LaunchMechanic/Visuals/LaunchDot.tscn" id="11_tem13"]
+[ext_resource type="Script" path="res://Player/DieInWater.gd" id="13_1ypmb"]
+[ext_resource type="AudioStream" uid="uid://dmpbaok6k7iu1" path="res://Player/SFX/Shoot.wav" id="13_6e4ba"]
+[ext_resource type="PackedScene" uid="uid://behfjof0l182v" path="res://Player/Visuals/Death.aseprite" id="14_1q5gh"]
+[ext_resource type="AudioStream" uid="uid://c10rda166oenx" path="res://Player/SFX/dying.wav" id="17_5gn76"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0hejb"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jnmvc"]
 radius = 8.94427
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_suc1l"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_d43mb"]
 radius = 8.94427
 
-[node name="Player Scene" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_of6of"]
+radius = 8.94427
+
+[node name="Player Scene" type="Node2D" node_paths=PackedStringArray("Player", "Camera")]
+script = ExtResource("1_xewo3")
+Player = NodePath("Player Slime")
+Camera = NodePath("Player Slime/PixelPerfectCamera2D")
 
 [node name="Player Slime" type="CharacterBody2D" parent="."]
-position = Vector2(0, -26)
 collision_layer = 4
+collision_mask = 17
 script = ExtResource("1_qx5tj")
+JumpSFX = ExtResource("3_k6jt3")
+LandSFX = ExtResource("4_81jhe")
 
 [node name="Weight" type="Node" parent="Player Slime"]
 script = ExtResource("1_5o86i")
@@ -31,9 +47,10 @@ _baseRadius = 4
 
 [node name="Absorber" type="Node2D" parent="Player Slime"]
 script = ExtResource("2_25ngs")
+absorbSFX = ExtResource("7_vkjla")
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_0hejb")
+shape = SubResource("CircleShape2D_jnmvc")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../Weight")
 
@@ -41,16 +58,17 @@ weight = NodePath("../Weight")
 z_index = 10
 script = ExtResource("5_asp2v")
 
-[node name="Core" parent="Player Slime" instance=ExtResource("4_rl5ha")]
+[node name="Core" parent="Player Slime" node_paths=PackedStringArray("weight") instance=ExtResource("4_rl5ha")]
 z_index = 15
-animation = &"Move_Right"
-frame = 1
-frame_progress = 1.0
+animation = &"Rise_Left"
 script = ExtResource("7_xn14r")
+weight = NodePath("../Weight")
 
-[node name="PlayerSlimeLaunch" type="Node2D" parent="Player Slime"]
+[node name="PlayerSlimeLaunch" type="Node2D" parent="Player Slime" node_paths=PackedStringArray("playerSceneRoot")]
 script = ExtResource("8_j864l")
 slimeProjectile = ExtResource("9_ydig4")
+playerSceneRoot = NodePath("../..")
+LaunchSFX = ExtResource("13_6e4ba")
 
 [node name="LaunchPreviewRenderer" type="Node2D" parent="Player Slime/PlayerSlimeLaunch"]
 script = ExtResource("10_skt7l")
@@ -61,9 +79,30 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime/Area2D" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_suc1l")
+shape = SubResource("CircleShape2D_d43mb")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../../Weight")
+
+[node name="DestroyInWater" type="Area2D" parent="Player Slime" node_paths=PackedStringArray("nodesToDestroy", "characterBody2D", "deathAnimation", "restartTimer")]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("13_1ypmb")
+nodesToDestroy = [NodePath("../Weight"), NodePath("../Absorber"), NodePath("../SlimeCollisionShape2D"), NodePath("../SlimeRenderer2D"), NodePath("../Core"), NodePath("../PlayerSlimeLaunch"), NodePath("../Area2D")]
+characterBody2D = NodePath("..")
+deathAnimation = NodePath("Death")
+restartTimer = NodePath("Timer")
+deathSFX = ExtResource("17_5gn76")
+
+[node name="Death" parent="Player Slime/DestroyInWater" instance=ExtResource("14_1q5gh")]
+visible = false
+
+[node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime/DestroyInWater" node_paths=PackedStringArray("weight")]
+shape = SubResource("CircleShape2D_of6of")
+script = ExtResource("7_7n1ci")
+weight = NodePath("../../Weight")
+
+[node name="Timer" type="Timer" parent="Player Slime/DestroyInWater"]
+one_shot = true
 
 [node name="PixelPerfectCamera2D" type="Camera2D" parent="Player Slime"]
 position = Vector2(0, 26)

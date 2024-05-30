@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dtg2cymu7nb36"]
 
-[ext_resource type="PackedScene" uid="uid://cs03ct8p56d66" path="res://Shared/Slime/BaseSlime.tscn" id="1_a2gbu"]
+[ext_resource type="PackedScene" uid="uid://cs03ct8p56d66" path="res://Levels/Puzzle Objects/slime.tscn" id="1_a2gbu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edt24"]
 radius = 4.0
