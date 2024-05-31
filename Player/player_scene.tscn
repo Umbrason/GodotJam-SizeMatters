@@ -20,13 +20,13 @@
 [ext_resource type="PackedScene" uid="uid://behfjof0l182v" path="res://Player/Visuals/Death.aseprite" id="14_1q5gh"]
 [ext_resource type="AudioStream" uid="uid://c10rda166oenx" path="res://Player/SFX/dying.wav" id="17_5gn76"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jnmvc"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvjfu"]
 radius = 8.94427
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_d43mb"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_d07tq"]
 radius = 8.94427
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_of6of"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ur4re"]
 radius = 8.94427
 
 [node name="Player Scene" type="Node2D" node_paths=PackedStringArray("Player", "Camera")]
@@ -50,7 +50,7 @@ script = ExtResource("2_25ngs")
 absorbSFX = ExtResource("7_vkjla")
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_jnmvc")
+shape = SubResource("CircleShape2D_rvjfu")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../Weight")
 
@@ -79,7 +79,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime/Area2D" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_d43mb")
+shape = SubResource("CircleShape2D_d07tq")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../../Weight")
 
@@ -97,7 +97,7 @@ deathSFX = ExtResource("17_5gn76")
 visible = false
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime/DestroyInWater" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_of6of")
+shape = SubResource("CircleShape2D_ur4re")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../../Weight")
 
@@ -110,9 +110,9 @@ position_smoothing_speed = 2.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.4
-drag_top_margin = 0.75
+drag_top_margin = 0.15
 drag_right_margin = 0.4
-drag_bottom_margin = 0.5
+drag_bottom_margin = 0.35
 
 [connection signal="on_body_enter" from="Player Slime" to="Player Slime/Absorber" method="tryAbsorb"]
 [connection signal="area_entered" from="Player Slime/Area2D" to="Player Slime/Absorber" method="tryAbsorb"]
