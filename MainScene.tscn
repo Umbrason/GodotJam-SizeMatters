@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Levels/Loading/LevelLoader.gd" id="1_sr0r4"]
 [ext_resource type="PackedScene" uid="uid://dil61auwkomxl" path="res://Player/player_scene.tscn" id="2_g5a73"]
-[ext_resource type="PackedScene" uid="uid://h1us8qajlxpl" path="res://Levels/Scenes/WeightPressureplate.tscn" id="3_d7oqc"]
+[ext_resource type="PackedScene" uid="uid://dm138xy52x2fr" path="res://Levels/Scenes/Pulley_Slime_Level.tscn" id="3_g16x6"]
 [ext_resource type="AudioStream" uid="uid://bm6o3erhliuxq" path="res://Shared/Audio/BGM.wav" id="5_00qw6"]
 [ext_resource type="AudioStream" uid="uid://bb2by3xtd3pk2" path="res://Shared/Audio/Main_Menu.wav" id="6_8wlnv"]
 [ext_resource type="Script" path="res://Menu/Pause/PauseMenu.gd" id="7_ylj1e"]
@@ -53,7 +53,7 @@ frame_9/duration = 1.0
 [node name="LevelLoader" type="Node" parent="."]
 script = ExtResource("1_sr0r4")
 PlayerSceneTemplate = ExtResource("2_g5a73")
-Levels = Array[PackedScene]([ExtResource("3_d7oqc")])
+Levels = Array[PackedScene]([ExtResource("3_g16x6")])
 
 [node name="BGM" type="Node" parent="."]
 process_mode = 3

@@ -31,15 +31,21 @@ var _rightWeightBias = 0
 func _ready():
 	LeftWeightCounter.weight_changed.connect(weightChanged)
 	RightWeightCounter.weight_changed.connect(weightChanged)
-	
+		
+	leftSpring.Position = LeftHeight
 	leftSpring.RestingPos = LeftHeight
+
+	rightSpring.Position = RightHeight
 	rightSpring.RestingPos = RightHeight
+
+	LeftPlatformAnchor.position.y = leftSpring.Position;
+	RightPlatformAnchor.position.y = rightSpring.Position
+
 	_leftWeightBias = LeftHeight / totalLength
 	_rightWeightBias = RightHeight / totalLength
 
 	var rightPos = RightPolygon2D.global_position.x - CenterPolygon2D.global_position.x
 	var leftPos = LeftPolygon2D.global_position.x - CenterPolygon2D.global_position.x
-
 	
 	centerPolygon.append(Vector2(leftPos - 1, 1))
 	centerPolygon.append(Vector2(leftPos - 1, -1))
@@ -56,7 +62,7 @@ func _ready():
 	rightPolygon.append(Vector2(0, 0))
 	rightPolygon.append(Vector2(0, 0))
 
-	CenterPolygon2D.polygon = centerPolygon	
+	CenterPolygon2D.polygon = centerPolygon
 
 func free():
 	LeftWeightCounter.weight_changed.disconnect(weightChanged)

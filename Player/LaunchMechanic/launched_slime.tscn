@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtg2cymu7nb36"]
+[gd_scene load_steps=5 format=3 uid="uid://dtg2cymu7nb36"]
 
 [ext_resource type="PackedScene" uid="uid://cs03ct8p56d66" path="res://Levels/Puzzle Objects/slime.tscn" id="1_a2gbu"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_edt24"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_d7lme"]
 radius = 4.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fahsr"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_s0484"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xaih0"]
 radius = 4.0
 
 [node name="LaunchedSlime" instance=ExtResource("1_a2gbu")]
@@ -14,7 +17,7 @@ radius = 4.0
 z_index = 5
 
 [node name="SlimeCollisionShape2D" parent="." index="3"]
-shape = SubResource("CircleShape2D_edt24")
+shape = SubResource("CircleShape2D_d7lme")
 
 [node name="Area2D" parent="." index="4"]
 collision_layer = 0
@@ -22,15 +25,15 @@ collision_mask = 0
 
 [node name="Timer" type="Timer" parent="Area2D" index="0"]
 process_callback = 0
-wait_time = 0.25
+wait_time = 0.1
 one_shot = true
 autostart = true
 
 [node name="SlimeCollisionShape2D" parent="Area2D" index="1"]
-shape = SubResource("CircleShape2D_fahsr")
+shape = SubResource("CircleShape2D_s0484")
 
-[node name="Weight" parent="." index="5"]
-_baseRadius = null
+[node name="SlimeCollisionShape2D" parent="DestroyInWater" index="0"]
+shape = SubResource("CircleShape2D_xaih0")
 
 [connection signal="timeout" from="Area2D/Timer" to="Area2D" method="set_collision_mask" binds= [7]]
 [connection signal="timeout" from="Area2D/Timer" to="Area2D" method="set_collision_layer" binds= [2]]
