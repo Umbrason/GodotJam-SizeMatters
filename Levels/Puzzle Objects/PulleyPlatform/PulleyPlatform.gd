@@ -31,7 +31,7 @@ var _rightWeightBias = 0
 func _ready():
 	LeftWeightCounter.weight_changed.connect(weightChanged)
 	RightWeightCounter.weight_changed.connect(weightChanged)
-		
+
 	leftSpring.Position = LeftHeight
 	leftSpring.RestingPos = LeftHeight
 

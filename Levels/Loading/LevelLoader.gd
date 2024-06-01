@@ -8,6 +8,9 @@ var currentPlayerScene: PlayerScene
 var currentLevel: PuzzleLevel
 var currentLevelID: int = -1
 
+static var levelCount: int:
+	get: return instance.Levels.size()
+
 static var instance: LevelLoader
 
 func _init():
@@ -29,7 +32,7 @@ func _unload():
 	if currentPlayerScene != null: currentPlayerScene.queue_free()
 
 static func loadLevel(levelID: int):
-	instance._loadLevel(levelID)
+	instance._loadLevel(levelID)	
 
 static func loadNextLevel():
 	instance._loadLevel(instance.currentLevelID + 1)
@@ -46,3 +49,7 @@ func _loadLevel(levelID: int):
 
 	add_child(currentPlayerScene)
 	add_child(currentLevel)
+
+	if(levelID == 0): SpeedrunTimer.Start()
+
+	if(levelID == levelCount - 1): SpeedrunTimer.Complete()

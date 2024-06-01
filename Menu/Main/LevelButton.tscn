@@ -1,0 +1,17 @@
+[gd_scene load_steps=6 format=3 uid="uid://dliexq8i7dvsu"]
+
+[ext_resource type="Theme" uid="uid://bxbbvh6pnw2tw" path="res://Menu/Theme.theme" id="1_q2p1y"]
+[ext_resource type="StyleBox" uid="uid://dmory03387e7t" path="res://Menu/BoxNormal.stylebox" id="2_5uvt2"]
+[ext_resource type="StyleBox" uid="uid://ccmupnxbh2ivt" path="res://Menu/BoxHover.stylebox" id="3_xpnj6"]
+[ext_resource type="StyleBox" uid="uid://c6tsj6s85ge1j" path="res://Menu/BoxPressed.stylebox" id="4_j0lv6"]
+[ext_resource type="StyleBox" uid="uid://dt8yihysjb4fj" path="res://Menu/BoxFocus.stylebox" id="5_vlk1q"]
+
+[node name="Level_0" type="Button"]
+custom_minimum_size = Vector2(9, 0)
+size_flags_horizontal = 4
+theme = ExtResource("1_q2p1y")
+theme_override_styles/normal = ExtResource("2_5uvt2")
+theme_override_styles/hover = ExtResource("3_xpnj6")
+theme_override_styles/pressed = ExtResource("4_j0lv6")
+theme_override_styles/focus = ExtResource("5_vlk1q")
+text = "0"

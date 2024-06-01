@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dil61auwkomxl"]
+[gd_scene load_steps=24 format=3 uid="uid://dil61auwkomxl"]
 
 [ext_resource type="Script" path="res://Shared/Slime/weight.gd" id="1_5o86i"]
 [ext_resource type="Script" path="res://Player/PlayerMove.gd" id="1_qx5tj"]
@@ -19,14 +19,15 @@
 [ext_resource type="AudioStream" uid="uid://dmpbaok6k7iu1" path="res://Player/SFX/Shoot.wav" id="13_6e4ba"]
 [ext_resource type="PackedScene" uid="uid://behfjof0l182v" path="res://Player/Visuals/Death.aseprite" id="14_1q5gh"]
 [ext_resource type="AudioStream" uid="uid://c10rda166oenx" path="res://Player/SFX/dying.wav" id="17_5gn76"]
+[ext_resource type="Script" path="res://Timer/SpeedrunTimer.gd" id="20_l6vaa"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rvjfu"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_v34k4"]
 radius = 8.94427
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_d07tq"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_it4nw"]
 radius = 8.94427
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ur4re"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_sl00f"]
 radius = 8.94427
 
 [node name="Player Scene" type="Node2D" node_paths=PackedStringArray("Player", "Camera")]
@@ -50,7 +51,7 @@ script = ExtResource("2_25ngs")
 absorbSFX = ExtResource("7_vkjla")
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_rvjfu")
+shape = SubResource("CircleShape2D_v34k4")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../Weight")
 
@@ -79,7 +80,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime/Area2D" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_d07tq")
+shape = SubResource("CircleShape2D_it4nw")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../../Weight")
 
@@ -97,7 +98,7 @@ deathSFX = ExtResource("17_5gn76")
 visible = false
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Player Slime/DestroyInWater" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_ur4re")
+shape = SubResource("CircleShape2D_sl00f")
 script = ExtResource("7_7n1ci")
 weight = NodePath("../../Weight")
 
@@ -113,6 +114,30 @@ drag_left_margin = 0.4
 drag_top_margin = 0.15
 drag_right_margin = 0.4
 drag_bottom_margin = 0.35
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="SpeedrunTimer" type="Label" parent="CanvasLayer"]
+z_index = 10
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 77.0
+offset_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "00:00:00"
+script = ExtResource("20_l6vaa")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/SpeedrunTimer"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [connection signal="on_body_enter" from="Player Slime" to="Player Slime/Absorber" method="tryAbsorb"]
 [connection signal="area_entered" from="Player Slime/Area2D" to="Player Slime/Absorber" method="tryAbsorb"]

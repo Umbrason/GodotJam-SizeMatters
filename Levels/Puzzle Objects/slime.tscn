@@ -13,13 +13,13 @@
 [ext_resource type="Script" path="res://Shared/Slime/SFXOnCollision.gd" id="10_qdtfg"]
 [ext_resource type="AudioStream" uid="uid://dxbm15ghbsktu" path="res://Player/SFX/land.wav" id="11_g218j"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_p7s20"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_yi0tl"]
 radius = 4.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_veskt"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_5isxv"]
 radius = 4.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bixww"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_8qtie"]
 radius = 4.0
 
 [node name="WeightlessSlime" type="RigidBody2D"]
@@ -45,7 +45,7 @@ weight = NodePath("../Weight")
 script = ExtResource("5_vw203")
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="." node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_p7s20")
+shape = SubResource("CircleShape2D_yi0tl")
 script = ExtResource("6_w3lry")
 weight = NodePath("../Weight")
 
@@ -54,7 +54,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="Area2D" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_veskt")
+shape = SubResource("CircleShape2D_5isxv")
 script = ExtResource("6_w3lry")
 weight = NodePath("../../Weight")
 
@@ -66,7 +66,7 @@ nodeToDestroy = NodePath("..")
 DeathSFX = ExtResource("9_rbpm7")
 
 [node name="SlimeCollisionShape2D" type="CollisionShape2D" parent="DestroyInWater" node_paths=PackedStringArray("weight")]
-shape = SubResource("CircleShape2D_bixww")
+shape = SubResource("CircleShape2D_8qtie")
 script = ExtResource("6_w3lry")
 weight = NodePath("../../Weight")
 

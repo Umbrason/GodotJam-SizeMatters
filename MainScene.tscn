@@ -1,14 +1,23 @@
-[gd_scene load_steps=25 format=3 uid="uid://dljbr3oxkyhlw"]
+[gd_scene load_steps=35 format=3 uid="uid://dljbr3oxkyhlw"]
 
 [ext_resource type="Script" path="res://Levels/Loading/LevelLoader.gd" id="1_sr0r4"]
 [ext_resource type="PackedScene" uid="uid://dil61auwkomxl" path="res://Player/player_scene.tscn" id="2_g5a73"]
-[ext_resource type="PackedScene" uid="uid://dm138xy52x2fr" path="res://Levels/Scenes/Pulley_Slime_Level.tscn" id="3_g16x6"]
+[ext_resource type="PackedScene" uid="uid://jwxu1kaq2isu" path="res://Levels/Scenes/Pulley_Intro.tscn" id="3_55woh"]
+[ext_resource type="PackedScene" uid="uid://b3jm42a86cqc1" path="res://Levels/Scenes/puzzle_level_controls.tscn" id="3_l8u0q"]
+[ext_resource type="PackedScene" uid="uid://dwats2gvxrhe" path="res://Levels/Scenes/water_platformer_level.tscn" id="4_ebkob"]
+[ext_resource type="PackedScene" uid="uid://bcqvacawms5du" path="res://Levels/Scenes/FinalScene.tscn" id="4_pka1m"]
 [ext_resource type="AudioStream" uid="uid://bm6o3erhliuxq" path="res://Shared/Audio/BGM.wav" id="5_00qw6"]
+[ext_resource type="PackedScene" uid="uid://dtpxcrmsk3j1f" path="res://Levels/Scenes/PressurePlateLevel.tscn" id="5_rkhbn"]
+[ext_resource type="PackedScene" uid="uid://h1us8qajlxpl" path="res://Levels/Scenes/WeightPressureplate.tscn" id="6_3vgyc"]
 [ext_resource type="AudioStream" uid="uid://bb2by3xtd3pk2" path="res://Shared/Audio/Main_Menu.wav" id="6_8wlnv"]
+[ext_resource type="PackedScene" uid="uid://dir18fo71cdoq" path="res://Levels/Scenes/SlimeRescue.tscn" id="7_61c4o"]
 [ext_resource type="Script" path="res://Menu/Pause/PauseMenu.gd" id="7_ylj1e"]
+[ext_resource type="PackedScene" uid="uid://dr0qwhjjynurg" path="res://Levels/Scenes/MinSizeLevel.tscn" id="8_07gob"]
 [ext_resource type="Texture2D" uid="uid://mhujn6qkpabh" path="res://Menu/TitleFrames/Title1.png" id="8_h1mnr"]
+[ext_resource type="PackedScene" uid="uid://bmxerqmgyoupb" path="res://Levels/Scenes/Catch.tscn" id="8_ux1r6"]
 [ext_resource type="Texture2D" uid="uid://cfu84iu52inys" path="res://Menu/TitleFrames/Title2.png" id="9_wey2f"]
 [ext_resource type="Texture2D" uid="uid://dlo7i6epgx55t" path="res://Menu/TitleFrames/Title3.png" id="10_0okuo"]
+[ext_resource type="PackedScene" uid="uid://dm138xy52x2fr" path="res://Levels/Scenes/Pulley_Slime_Level.tscn" id="10_bto3y"]
 [ext_resource type="Texture2D" uid="uid://d1lq5ng7gsyem" path="res://Menu/TitleFrames/Title4.png" id="11_rtsrq"]
 [ext_resource type="Texture2D" uid="uid://df48i2o3lgtox" path="res://Menu/TitleFrames/Title5.png" id="12_p2nvl"]
 [ext_resource type="Texture2D" uid="uid://csngff7efquxx" path="res://Menu/TitleFrames/Title6.png" id="13_fuw62"]
@@ -23,6 +32,7 @@
 [ext_resource type="StyleBox" uid="uid://c6tsj6s85ge1j" path="res://Menu/BoxPressed.stylebox" id="22_tno87"]
 [ext_resource type="StyleBox" uid="uid://dt8yihysjb4fj" path="res://Menu/BoxFocus.stylebox" id="23_j314d"]
 [ext_resource type="Script" path="res://Menu/Main/MainMenu.gd" id="24_831h2"]
+[ext_resource type="PackedScene" uid="uid://dliexq8i7dvsu" path="res://Menu/Main/LevelButton.tscn" id="24_qctm3"]
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_2n3mr"]
 frames = 10
@@ -53,7 +63,7 @@ frame_9/duration = 1.0
 [node name="LevelLoader" type="Node" parent="."]
 script = ExtResource("1_sr0r4")
 PlayerSceneTemplate = ExtResource("2_g5a73")
-Levels = Array[PackedScene]([ExtResource("3_g16x6")])
+Levels = Array[PackedScene]([ExtResource("3_l8u0q"), ExtResource("4_ebkob"), ExtResource("5_rkhbn"), ExtResource("6_3vgyc"), ExtResource("7_61c4o"), ExtResource("8_ux1r6"), ExtResource("8_07gob"), ExtResource("3_55woh"), ExtResource("10_bto3y"), ExtResource("4_pka1m")])
 
 [node name="BGM" type="Node" parent="."]
 process_mode = 3
@@ -177,10 +187,12 @@ text = "Quit"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MainMenuCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("MenuBGM", "GameplayBGM")]
+[node name="MainMenuCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("MenuBGM", "GameplayBGM", "gridContainer")]
 script = ExtResource("24_831h2")
 MenuBGM = NodePath("../BGM/MenuBGM")
 GameplayBGM = NodePath("../BGM/GameplayBGM")
+levelButtonTemplate = ExtResource("24_qctm3")
+gridContainer = NodePath("Root/Widgets/LevelButtons")
 
 [node name="Root" type="VBoxContainer" parent="MainMenuCanvas"]
 anchors_preset = 15
@@ -287,17 +299,7 @@ horizontal_alignment = 1
 [node name="LevelButtons" type="GridContainer" parent="MainMenuCanvas/Root/Widgets"]
 layout_mode = 2
 size_flags_horizontal = 4
-
-[node name="Level_0" type="Button" parent="MainMenuCanvas/Root/Widgets/LevelButtons"]
-custom_minimum_size = Vector2(9, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("18_bjxwu")
-theme_override_styles/normal = ExtResource("20_pfeq6")
-theme_override_styles/hover = ExtResource("21_ify6s")
-theme_override_styles/pressed = ExtResource("22_tno87")
-theme_override_styles/focus = ExtResource("23_j314d")
-text = "0"
+columns = 9
 
 [node name="Control2" type="Control" parent="MainMenuCanvas/Root/Widgets"]
 layout_mode = 2
